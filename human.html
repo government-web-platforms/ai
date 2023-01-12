@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+</head>
+
+<body>
+
+<script>
+  // Create a scene
+  var scene = new THREE.Scene();
+
+  // Add a camera
+  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 5;
+
+  // Add a renderer
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Add controls
+  var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+  // Add a human model
+  var human;
+  var loader = new THREE.GLTFLoader();
+  loader.load("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Humanoid/glTF/Humanoid.gltf", function (gltf) {
+    human = gltf.scene;
+    scene.add(human);
+  });
+
+  // Render the scene
+  function render() {
+    requestAnimationFrame(render);
+    renderer.render(scene, camera);
+  }
+  render();
+</script>
+
+</body>
+
+</html>
